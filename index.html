@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0F1A17">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<title>Territory</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#0F1A17;--panel:#1C2B26;--line:#22352E;--tx:#E8F0EC;--mu:#8FA39A;--ac:#3DD6B0}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--tx);font:15px 'Space Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
+button,input{font:inherit}
+button{min-height:44px;border:0;border-radius:10px;background:#2B4037;color:var(--tx);font-weight:700;padding:0 14px}
+button.p{background:var(--ac);color:#07120E}
+input{min-height:44px;border-radius:10px;border:1px solid #2B4037;background:var(--panel);color:var(--tx);padding:0 12px;width:100%}
+small,.m{color:var(--mu);font-size:13px}
+#login{margin:auto;width:min(340px,90vw);display:flex;flex-direction:column;gap:12px}
+#app{display:none;flex:1;min-height:0;flex-direction:column}
+header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line)}
+.chip{background:var(--panel);border-radius:8px;padding:6px 10px;font-weight:500;margin-left:6px}
+#v1,#v2{flex:1;min-height:0}
+#v1{display:flex;flex-direction:column}#v2{display:none;overflow:auto;padding:16px}
+#wrap{flex:1;overflow:auto;background:#13211C}
+#sheet{background:var(--panel);border-top:1px solid #2B4037;padding:16px;display:flex;flex-direction:column;gap:8px;min-height:150px}
+#sheet b{font-size:20px}.row{display:flex;gap:8px}.row button{flex:1}
+nav{display:flex;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;background:none;border-radius:0;border-top:2px solid transparent;color:var(--mu);height:56px}
+nav button.on{color:var(--ac);border-top-color:var(--ac)}
+.r{display:flex;align-items:center;gap:12px;padding:10px 0}.r i{width:12px;height:12px;border-radius:3px}
+.r span{flex:1;display:flex;flex-direction:column}h3{margin:20px 0 4px;font-size:15px}
+#toast{position:fixed;left:50%;top:70px;transform:translateX(-50%);background:#FF9F5A;color:#07120E;padding:8px 14px;border-radius:8px;font-weight:700;display:none}
+</style>
+</head>
+<body>
+<form id="login">
+<h2 style="margin:0">Territory</h2>
+<input id="n" placeholder="Your name" autocomplete="username" required>
+<input id="t" placeholder="Your secret token" type="password" autocomplete="current-password" required>
+<button class="p">Enter</button>
+<small>Ask the host for your name and token.</small>
+</form>
+<div id="app">
+<header><span><b id="wk"></b><br><small id="msg">Resets Monday</small></span><span><span class="chip" id="en"></span><span class="chip" id="da"></span></span></header>
+<div id="v1"><div id="wrap"><canvas id="map"></canvas></div><div id="sheet"></div></div>
+<div id="v2"></div>
+<nav><button class="on" data-v="1">Map</button><button data-v="2">Ranks</button></nav>
+</div>
+<div id="toast" role="alert"></div>
+<script>
+const API='https://script.google.com/macros/s/AKfycbz_gdgTjRrYzmyE6rIGX43qpC43RHrDM4HqeuKuAw0vvn7wpo0UhL3GsiXlsGEtfQ2QCg/exec',$=s=>document.querySelector(s),CELL=28;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';');
+let S=null,sel=null,cred=JSON.parse(localStorage.getItem('cred')||'null');
+const cv=$('#map'),g=cv.getContext('2d');
+function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2500)}
+async function load(){
+  if(!cred)return;
+  try{const d=await(await fetch(API+'?'+new URLSearchParams(cred))).json();
+    if(d.error){localStorage.removeItem('cred');cred=null;show();toast('Wrong name or token');return}
+    S=d;paint();$('#msg').textContent='Resets Monday'}
+  catch(e){$('#msg').textContent='Offline, retrying'}
+}
+async function act(o){
+  try{const d=await(await fetch(API,{method:'POST',body:JSON.stringify({...cred,...o})})).json();
+    d.error?toast(d.error):(S=d,paint())}
+  catch(e){toast('Could not reach the server')}
+}
+function show(){$('#login').style.display=cred?'none':'flex';$('#app').style.display=cred?'flex':'none'}
+function paint(){
+  $('#wk').textContent='Week '+S.week;$('#en').textContent='Energy '+S.me.energy;$('#da').textContent='Data '+S.me.data;
+  draw();sheet();ranks()
+}
+function draw(){
+  const n=S.size,col=Object.fromEntries(S.players.map(p=>[p.name,p.color]));
+  cv.width=cv.height=n*CELL;g.fillStyle='#13211C';g.fillRect(0,0,n*CELL,n*CELL);
+  g.strokeStyle='rgba(255,255,255,.06)';g.beginPath();
+  for(let i=0;i<=n;i++){g.moveTo(i*CELL+.5,0);g.lineTo(i*CELL+.5,n*CELL);g.moveTo(0,i*CELL+.5);g.lineTo(n*CELL,i*CELL+.5)}
+  g.stroke();g.font='bold 14px sans-serif';g.textAlign='center';g.textBaseline='middle';
+  S.cells.forEach(c=>{const k=col[c.owner]||'#888',x=c.x*CELL,y=c.y*CELL;
+    g.fillStyle=k+'55';g.fillRect(x,y,CELL,CELL);g.strokeStyle=k;g.strokeRect(x+.5,y+.5,CELL-1,CELL-1);
+    if(c.building){g.fillStyle=k;g.fillText(c.building[0].toUpperCase(),x+CELL/2,y+CELL/2)}});
+  S.monuments.forEach(m=>{const x=m.x*CELL+CELL/2,y=m.y*CELL+CELL/2,r=CELL*.34;
+    g.fillStyle='#E8F0EC';g.beginPath();g.moveTo(x,y-r);g.lineTo(x+r*.8,y);g.lineTo(x,y+r);g.lineTo(x-r*.8,y);g.fill()});
+  if(sel){g.strokeStyle='#E8F0EC';g.lineWidth=2;g.strokeRect(sel.x*CELL+1,sel.y*CELL+1,CELL-2,CELL-2);g.lineWidth=1}
+}
+function sheet(){
+  const el=$('#sheet');
+  if(!sel){el.innerHTML='<b>Tap a cell</b><span class="m">Claim land next to yours, then build on it.</span>';return}
+  const c=S.cells.find(c=>c.x==sel.x&&c.y==sel.y),mon=S.monuments.find(m=>m.x==sel.x&&m.y==sel.y);
+  let h=`<small>Cell ${sel.x},${sel.y}${mon?' · monument':''}</small><b>${mon?esc(mon.name):c&&c.building?esc(c.building):c?'Empty cell':'Unclaimed'}</b>`;
+  h+=`<span class="m">${c?'Held by '+esc(c.owner):'Free land'}</span>`;
+  if(!c||c.owner!==S.me.name)h+=`<button class="p" data-a="capture">${c?'Capture':'Claim'} · ${c?S.cfg.steal:S.cfg.capture} energy</button>`;
+  else if(!c.building&&!mon)h+='<div class="row">'+Object.keys(S.cfg.cost).map(b=>`<button data-a="build:${b}">${b}<br>${S.cfg.cost[b]}</button>`).join('')+'</div>';
+  el.innerHTML=h
+}
+function ranks(){
+  const P=S.players.slice().sort((a,b)=>b.points-a.points),al={};
+  P.forEach(p=>{if(p.alliance)al[p.alliance]=(al[p.alliance]||0)+p.points});
+  let h='<b>Weekly ranking</b>'+P.map((p,i)=>`<div class="r"><i style="background:${esc(p.color)}"></i><span>${i+1}. ${esc(p.name)}${p.name==S.me.name?' (you)':''}<small>${esc(p.alliance||'No alliance')}</small></span><b>${p.points}</b></div>`).join('');
+  h+='<h3>Alliances</h3>'+(Object.entries(al).sort((a,b)=>b[1]-a[1]).map(([n,v])=>`<div class="r"><span>${esc(n)}</span><b>${v}</b></div>`).join('')||'<span class="m">None yet.</span>');
+  if(S.winner)h+=`<h3>Last week's winner</h3><span>${esc(S.winner)}</span>`;
+  h+=`<h3>Your alliance</h3><div class="row"><input id="al" value="${esc(S.me.alliance||'')}" maxlength="20" placeholder="Alliance name"><button class="p" data-a="ally" style="flex:none">Save</button></div><button id="out" style="margin-top:24px">Sign out</button>`;
+  $('#v2').innerHTML=h
+}
+cv.onclick=e=>{const r=cv.getBoundingClientRect();
+  sel={x:Math.floor((e.clientX-r.left)/CELL),y:Math.floor((e.clientY-r.top)/CELL)};draw();sheet()};
+document.body.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.v){document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));$('#v1').style.display=b.dataset.v=='1'?'flex':'none';$('#v2').style.display=b.dataset.v=='2'?'block':'none'}
+  else if(b.id==='out'){localStorage.removeItem('cred');cred=null;show()}
+  else if(b.dataset.a){const[t,x]=b.dataset.a.split(':');act({action:t,x:sel&&sel.x,y:sel&&sel.y,building:x,alliance:$('#al')&&$('#al').value})}
+});
+$('#login').onsubmit=e=>{e.preventDefault();cred={name:$('#n').value.trim(),token:$('#t').value.trim()};localStorage.setItem('cred',JSON.stringify(cred));show();load()};
+show();load();setInterval(()=>{if(!document.hidden)load()},5000);
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
