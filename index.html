@@ -7,17 +7,83 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0f1a17;--panel:#192a23;--line:#2a4035;--tx:#edf3ed;--muted:#9aac9d;--accent:#c5dc91;--gold:#f0c77b;--danger:#f49b89}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px 'Space Grotesk',system-ui,sans-serif}button,input{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#263d30;color:var(--tx);border-radius:10px;padding:10px 13px;min-height:44px}button:hover{border-color:var(--accent)}button:disabled{opacity:.45;cursor:default}button.primary{background:var(--accent);color:#172314;border:0;font-weight:700}button.danger{color:var(--danger);background:#382722}input{color:var(--tx);background:#101e17;border:1px solid var(--line);padding:11px;border-radius:9px;width:100%;min-height:44px}small,.muted{color:var(--muted);line-height:1.6}h1,h2,h3,p{margin-top:0}h2{font-size:23px}h3{font-size:14px;margin:20px 0 10px}b{font-weight:700}.eyebrow{text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-size:10px;font-weight:700}.hidden{display:none!important}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px 'Space Grotesk',system-ui,sans-serif}button,input{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#263d30;color:var(--tx);border-radius:10px;padding:10px 13px;min-height:44px}button:hover{border-color:var(--accent)}button:disabled{opacity:.45;cursor:default}button.primary{background:var(--accent);color:#172314;border:0;font-weight:700}button.danger{color:var(--danger);background:#382722}input{color:var(--tx);background:#101e17;border:1px solid var(--line);padding:11px;border-radius:9px;width:100%;min-height:44px}small,.muted{color:var(--muted);line-height:1.6}h1,h2,h3,p{margin-top:0;overflow-wrap:anywhere}h2{font-size:23px}h3{font-size:14px;margin:20px 0 10px}b{font-weight:700}.eyebrow{text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-size:10px;font-weight:700}.hidden{display:none!important}
 #login{min-height:100svh;display:grid;place-items:center;padding:24px}.welcome{width:min(440px,100%);padding:36px;border:1px solid var(--line);background:radial-gradient(ellipse at top right,#36513955,transparent 70%),var(--panel);border-radius:24px}.welcome h1{font-size:48px;letter-spacing:-3px;margin:12px 0}.welcome form{display:grid;gap:12px;margin-top:30px}.welcome .landscape{font-size:45px;letter-spacing:10px;margin:22px 0}.welcome>button{width:100%;margin-top:12px;background:transparent}
 header{padding:17px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:25px;flex-wrap:wrap;background:#112018}header .brand{font-size:21px;letter-spacing:-1px;white-space:nowrap}.resources{display:flex;gap:9px;flex:1;justify-content:flex-end;flex-wrap:wrap}.resource{padding:7px 12px;background:#1e3026;border:1px solid var(--line);border-radius:10px}.resource small{font-size:10px;display:block}.resource strong{font-size:16px}.layout{display:grid;grid-template-columns:230px minmax(300px,1fr) 320px;min-height:calc(100svh - 90px)}aside{padding:24px 18px;background:#132219;border-right:1px solid var(--line)}.crest{font-size:42px;display:block;margin:12px 0}.divider{height:1px;background:var(--line);margin:23px 0}.metric{display:flex;justify-content:space-between;padding:8px 0;color:var(--muted)}.metric b{color:var(--tx)}.bar{height:5px;background:#314536;border-radius:8px;margin:7px 0 14px;overflow:hidden}.bar>span{display:block;height:100%;background:var(--accent)}.nav{display:grid;gap:6px}.nav button{text-align:left;background:none;border-color:transparent}.nav button.active{background:#2d4330;color:var(--accent)}
-main{padding:24px;min-width:0}.map-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.map-head h2{margin:5px 0 0}.map-controls{display:flex;gap:5px}.map-controls button{padding:5px 11px}.map-shell{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#203624;position:relative}.map-status{padding:10px 14px;background:#1a2a1c;font-size:12px;color:var(--muted);border-top:1px solid var(--line);display:flex;gap:16px;flex-wrap:wrap}#wrap{height:min(66svh,700px);overflow:auto;touch-action:pan-x pan-y;scrollbar-color:#5d7455 #1c2e20}canvas{display:block}.legend-dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px}.tip{padding:14px 0;color:var(--muted);font-size:12px;line-height:1.7}.selection{padding:24px 20px;border-left:1px solid var(--line);background:#16271c}.selection h2{font-size:23px;margin:10px 0 6px}.selection .hero{font-size:58px;background:#243b27;border:1px solid #3b543a;border-radius:17px;padding:20px;text-align:center;margin-bottom:20px}.badge{font-size:10px;border:1px solid #526343;border-radius:20px;padding:4px 9px;display:inline-block;color:var(--accent);margin-right:5px}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.building-option{text-align:left;padding:14px;display:flex;gap:12px;width:100%;margin-top:8px}.building-option span{display:block}.building-option .icon{font-size:28px}.building-option small{display:block;font-size:11px}.full{width:100%;margin-top:10px}.cost{color:var(--gold);font-size:12px;line-height:1.7}.good{color:var(--accent)}.warn{color:var(--danger)}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0}.row input{width:85px}.battle-preview{background:#101e15;padding:14px;border-radius:10px;margin:12px 0}.rank{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.rank span{flex:1}.rank small{display:block}.notice{padding:12px 24px;background:#32452b;color:#e1edc6;font-size:12px}.notice button{padding:0 9px;min-height:30px;margin-left:12px}#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#e0eacb;color:#122112;box-shadow:0 8px 40px #0007;padding:14px 20px;border-radius:12px;max-width:min(500px,90vw);z-index:20;line-height:1.5}#connection{font-size:10px;margin-top:22px;color:var(--muted)}.guide{line-height:1.85}.guide li{margin:8px 0}.selection .building-list{max-height:45svh;overflow:auto}.account-actions{display:flex;gap:8px;margin-top:20px}.account-actions button{flex:1;font-size:12px}
+main{padding:24px;min-width:0}.map-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.map-head h2{margin:5px 0 0}.map-controls{display:flex;gap:5px}.map-controls button{padding:5px 11px}.map-shell{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#203624;position:relative}.map-status{padding:10px 14px;background:#1a2a1c;font-size:12px;color:var(--muted);border-top:1px solid var(--line);display:flex;gap:16px;flex-wrap:wrap}#wrap{height:min(66svh,700px);overflow:auto;touch-action:pan-x pan-y;scrollbar-color:#5d7455 #1c2e20}canvas{display:block}.legend-dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px}.tip{padding:14px 0;color:var(--muted);font-size:12px;line-height:1.7}.selection{padding:24px 20px;border-left:1px solid var(--line);background:#16271c}.selection h2{font-size:23px;margin:10px 0 6px}.selection .hero{font-size:58px;background:#243b27;border:1px solid #3b543a;border-radius:17px;padding:20px;text-align:center;margin-bottom:20px}.badge{font-size:10px;border:1px solid #526343;border-radius:20px;padding:4px 9px;display:inline-block;color:var(--accent);margin-right:5px}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.building-option{text-align:left;padding:14px;display:flex;gap:12px;width:100%;margin-top:8px}.building-option span{display:block}.building-option .icon{font-size:28px}.building-option small{display:block;font-size:11px}.full{width:100%;margin-top:10px}.cost{color:var(--gold);font-size:12px;line-height:1.7}.good{color:var(--accent)}.warn{color:var(--danger)}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0}.row input{width:85px}.battle-preview{background:#101e15;padding:14px;border-radius:10px;margin:12px 0}.rank{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.rank span{flex:1}.rank small{display:block}.notice{padding:12px 24px;background:#32452b;color:#e1edc6;font-size:12px}.notice button{padding:0 9px;min-height:30px;margin-left:12px}#toast{pointer-events:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#e0eacb;color:#122112;box-shadow:0 8px 40px #0007;padding:14px 20px;border-radius:12px;max-width:min(500px,90vw);z-index:20;line-height:1.5}#connection{font-size:10px;margin-top:22px;color:var(--muted)}.guide{line-height:1.85}.guide li{margin:8px 0}.selection .building-list{max-height:45svh;overflow:auto}.account-actions{display:flex;gap:8px;margin-top:20px}.account-actions button{flex:1;font-size:12px}
 @media(max-width:1150px){.layout{grid-template-columns:190px minmax(250px,1fr) 285px}main{padding:18px}aside{padding:20px 14px}.selection{padding:20px 15px}header{gap:12px;padding:12px 18px}.resource{padding:6px 9px}}
-@media(max-width:850px){.layout{grid-template-columns:1fr}aside{padding:12px 16px;border-right:0;border-bottom:1px solid var(--line)}aside .desktop{display:none}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;flex:1;text-align:center;padding:8px}.selection{border-left:0;border-top:1px solid var(--line);padding:20px}.selection .hero{display:none}main{padding:16px}#wrap{height:48svh}header{padding:12px 16px}.resources{gap:5px}.resource{padding:6px 8px}.resource small{font-size:9px}.resource strong{font-size:13px}header .brand{font-size:18px}.selection .building-list{max-height:none}.notice{padding:10px 16px}.map-head h2{font-size:20px}.map-controls button{min-width:40px}.welcome{padding:25px}}
+/* Phone / tablet controls. Desktop retains the three-column layout. */
+.mobile-only,.sheet-controls{display:none}
+.nav-icon{display:inline-block;min-width:25px;text-align:center;margin-right:5px}
+.map-head>div:first-child{min-width:0}.map-head h2{overflow-wrap:anywhere}
+.resource{min-width:0}.resource small{display:flex;align-items:center;gap:3px}.resource-short{display:none}.demo-description{margin-left:7px}
+.building-option>span:last-child,.rank span{min-width:0;overflow-wrap:anywhere}
+#selection-content{min-height:0}.sheet-toggle{flex:1;text-align:left;background:transparent;border:0}
+#mobile-status{color:var(--accent);font-size:11px}#mobile-status.offline{color:var(--danger)}
+button,input,canvas{-webkit-tap-highlight-color:transparent}
+button:focus-visible,input:focus-visible,canvas:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(max-width:850px){
+  :root{--nav-height:64px;--header-height:110px}
+  html,body{width:100%;min-width:0}body.game-active{height:100dvh;overflow:hidden;overscroll-behavior:none}
+  #app{height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+  .mobile-only{display:inline-flex}.desktop{display:none!important}
+  #login{padding:max(20px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(20px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+  .welcome{padding:25px;min-width:0}.welcome h1{font-size:44px}.welcome .landscape{font-size:36px;letter-spacing:8px}
+  input{font-size:16px}button{touch-action:manipulation}
+  header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:calc(8px + env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) 10px max(12px,env(safe-area-inset-left));flex-shrink:0}
+  header .brand{font-size:18px;line-height:1.1;letter-spacing:-.6px}header .brand .eyebrow{display:none!important}
+  #mobile-kingdom{gap:7px;align-items:center;font-size:11px;padding:4px 9px;min-height:44px;border-radius:8px}
+  .resources{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;width:100%;justify-content:stretch}
+  .resource{padding:6px 7px;border-radius:8px;overflow:hidden}.resource small{font-size:9px;white-space:nowrap;line-height:1.25;gap:2px}
+  .resource strong{display:block;font-size:14px;line-height:1.55;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .resource strong.compact{font-size:12px}.resource-long{display:none}.resource-short{display:inline}
+  .layout{display:flex;flex-direction:column;min-height:0;flex:1;padding-bottom:calc(var(--nav-height) + env(safe-area-inset-bottom))}
+  aside{display:contents}
+  .nav{position:fixed;left:0;right:0;bottom:0;height:calc(var(--nav-height) + env(safe-area-inset-bottom));padding:5px max(6px,env(safe-area-inset-right)) calc(5px + env(safe-area-inset-bottom)) max(6px,env(safe-area-inset-left));display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;background:#112018f5;border-top:1px solid var(--line);z-index:40;backdrop-filter:blur(14px)}
+  .nav button{min-width:0;padding:4px 1px;font-size:10px;line-height:1.2;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;border-radius:9px;text-align:center;white-space:nowrap;min-height:48px}
+  .nav-icon{font-size:21px;line-height:1;margin-right:0}.nav .nav-long{display:none}
+  main{flex:1;min-height:0;overflow:auto;overscroll-behavior-y:contain;padding:18px max(14px,env(safe-area-inset-right)) 20px max(14px,env(safe-area-inset-left));-webkit-overflow-scrolling:touch}
+  main.map-mode{display:flex;flex-direction:column;overflow:hidden;padding:10px max(10px,env(safe-area-inset-right)) 0 max(10px,env(safe-area-inset-left))}
+  #map-view{display:flex;flex-direction:column;flex:1;min-height:0}
+  .map-head{flex-shrink:0;margin-bottom:10px;gap:8px;min-height:44px}.map-head .eyebrow{display:none}.map-head h2{font-size:17px;line-height:1.25;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .map-controls{flex-shrink:0;gap:4px}.map-controls button{width:44px;height:44px;min-width:44px;padding:0;font-size:20px}
+  .map-shell{flex:1;min-height:0;display:flex;flex-direction:column;border-radius:12px 12px 0 0}
+  #wrap{height:auto;flex:1;min-height:0;width:100%;overflow:auto;overscroll-behavior:contain;touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch}
+  #map{touch-action:pan-x pan-y}
+  .map-status{flex-shrink:0;font-size:10px;padding:8px 10px;gap:12px;white-space:nowrap;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .map-status::-webkit-scrollbar{display:none}.map-status span{flex-shrink:0}.tip{display:none}
+  .selection{position:fixed;left:0;right:0;bottom:calc(var(--nav-height) + env(safe-area-inset-bottom));z-index:30;display:flex;flex-direction:column;max-height:min(52dvh,calc(100dvh - var(--header-height) - var(--nav-height) - env(safe-area-inset-bottom) - 110px),650px);padding:0;border:1px solid #4d6446;border-bottom:0;border-radius:22px 22px 0 0;box-shadow:0 -12px 40px #0005;transform:translateY(calc(100% + 20px));visibility:hidden;pointer-events:none;transition:transform .18s ease,visibility .18s}
+  .selection.sheet-open{transform:translateY(0);visibility:visible;pointer-events:auto}
+  .selection.sheet-expanded{max-height:calc(100dvh - var(--header-height) - var(--nav-height) - env(safe-area-inset-bottom) - 10px)}
+  .sheet-controls{display:flex;flex-shrink:0;align-items:center;padding:7px max(12px,env(safe-area-inset-right)) 7px max(12px,env(safe-area-inset-left));gap:6px;border-bottom:1px solid var(--line)}
+  .sheet-controls button{min-height:44px}.sheet-toggle{padding:8px 4px;font-size:12px;color:var(--accent)}#sheet-chevron{float:right;margin-right:8px}
+  #sheet-dismiss{width:44px;padding:0;font-size:21px;background:transparent}
+  #selection-content{overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:14px max(16px,env(safe-area-inset-right)) 22px max(16px,env(safe-area-inset-left));scrollbar-width:thin}
+  .selection h2{font-size:23px;margin:7px 0}.selection p{line-height:1.6}.selection .hero{display:none}.selection .building-list{max-height:none;overflow:visible}
+  .selection .full{min-height:48px}.selection .building-option{min-height:74px;padding:13px}.selection .building-option small{font-size:12px}
+  #inspect-selected{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:calc(var(--nav-height) + env(safe-area-inset-bottom) + 18px);z-index:20;box-shadow:0 5px 22px #0007;font-size:12px;min-height:46px;border-radius:24px;padding:0 17px;background:var(--accent);color:#142112;font-weight:700}
+  #toast{bottom:calc(var(--nav-height) + env(safe-area-inset-bottom) + 14px);z-index:60;width:max-content;max-width:calc(100vw - 24px);font-size:13px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card{padding:15px;min-width:0}.card h2{font-size:23px}.metric{gap:10px;font-size:13px}.metric b{text-align:right;overflow-wrap:anywhere}
+  .rank{gap:9px}.row{min-width:0}.row input{flex-shrink:0}.row label{min-width:0}.guide ol{padding-left:20px}.account-actions{flex-wrap:wrap}
+  .notice{display:flex;flex-shrink:0;align-items:center;gap:5px;padding:6px max(10px,env(safe-area-inset-right)) 6px max(10px,env(safe-area-inset-left));font-size:10px}
+  .demo-description{display:none}.notice button{min-height:44px;margin:0;padding:4px 8px;font-size:10px}.demo-label{flex:1;line-height:1.5}
+}
+@media(max-width:370px){.resource{padding:5px}.resource strong{font-size:13px}.resource strong.compact{font-size:11px}.resource small{font-size:8px}.map-head h2{font-size:15px}.map-controls button{width:44px;min-width:44px}.card{padding:12px}}
+@media(max-width:850px) and (max-height:500px) and (orientation:landscape){
+  header .brand,#mobile-kingdom{display:none}header{grid-template-columns:minmax(0,1fr);padding-top:max(5px,env(safe-area-inset-top));padding-bottom:5px;gap:0}
+  .resources{grid-column:1}.resource{display:flex;justify-content:center;align-items:center;gap:10px;padding:4px 8px}.resource strong{font-size:13px}.resource small{font-size:10px}
+  :root{--nav-height:56px}.nav button{min-height:44px;flex-direction:row;gap:5px}.nav-icon{font-size:18px}
+  main.map-mode{padding-top:5px}.map-head{margin-bottom:5px;min-height:40px}.map-controls button{height:44px;min-height:44px}.map-status{padding:5px 10px}
+  .selection,.selection.sheet-expanded{left:auto;right:0;width:min(360px,65vw);height:calc(100dvh - var(--header-height) - var(--nav-height) - env(safe-area-inset-bottom));max-height:none;border-radius:16px 0 0 0;transform:translateX(105%)}
+  .selection.sheet-open{transform:translateX(0)}
+  .notice{padding-top:2px;padding-bottom:2px}.notice button{min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){.selection{transition:none}}
 </style>
 </head>
 <body>
 <div id="login"><section class="welcome"><span class="eyebrow">A world worth building</span><h1>Territory.</h1><p class="muted">Raise a capital. Build your kingdom.<br>Make your mark beyond the walls.</p><div class="landscape" aria-hidden="true">🌲🏰🌾</div><form id="signin"><input id="name" aria-label="Player name" placeholder="Your player name" autocomplete="username" required><input id="token" aria-label="Secret token" placeholder="Your secret token" type="password" autocomplete="current-password" required><button class="primary">Enter your kingdom →</button></form><button id="try-demo">Explore the demo</button><p class="muted" style="font-size:11px;margin:18px 0 0">Use the same name and token as your existing game.</p></section></div>
-<div id="app" class="hidden"><div id="demo-banner" class="notice hidden">DEMO · A separate practice kingdom. Your live game is untouched.<button data-action="demoTick">Advance 1 hour</button><button data-action="demoReset">Reset demo</button></div><header><div class="brand">▧ &nbsp;Territory<span class="eyebrow" style="display:block;margin:4px 0 0 27px">Kingdoms</span></div><div class="resources" id="resources"></div></header><div class="layout"><aside><div class="desktop" id="kingdom-summary"></div><nav class="nav"><button data-view="map" class="active">◈ &nbsp;Kingdom</button><button data-view="economy">↗ &nbsp;Economy</button><button data-view="army">⚑ &nbsp;Army</button><button data-view="ranks">♜ &nbsp;Rankings</button><button data-view="guide">? &nbsp;How to play</button></nav><div class="desktop"><div id="connection" role="status">Connecting…</div><div class="account-actions"><button data-action="signout">Sign out</button></div></div></aside><main id="main"><section id="map-view"><div class="map-head"><div><span class="eyebrow">Your corner of the world</span><h2 id="map-title">The frontier</h2></div><div class="map-controls"><button id="zoom-out" aria-label="Zoom out">−</button><button id="home" aria-label="Centre on capital">⌂</button><button id="zoom-in" aria-label="Zoom in">+</button></div></div><div class="map-shell"><div id="wrap"><canvas id="map" aria-label="Kingdom territory map. Select a cell to inspect or build." role="img"></canvas></div><div class="map-status"><span><i class="legend-dot" style="background:#91bd8a"></i>Your land</span><span>🛡 Protected core</span><span>◇ Monument</span><span>🌲 Neutral land</span></div></div><div class="tip">Drag or scroll to explore. Select a neighbouring cell to expand, or your own land to build. Capital cores cannot be attacked.</div></section><section id="other-view" class="hidden"></section></main><section id="selection" class="selection" aria-live="polite"></section></div></div><div id="toast" role="status" class="hidden"></div>
+<div id="app" class="hidden"><div id="demo-banner" class="notice hidden"><span class="demo-label">DEMO · Practice world</span><span class="demo-description">Your live game is untouched.</span><button data-action="demoTick">Advance 1 hour</button><button data-action="demoReset">Reset demo</button></div><header><div class="brand">▧ &nbsp;Territory<span class="eyebrow" style="display:block;margin:4px 0 0 27px">Kingdoms</span></div><button id="mobile-kingdom" class="mobile-only" data-view="overview" aria-label="Kingdom overview"><span id="mobile-status" role="status" aria-label="Connecting">●</span><span id="mobile-summary">Your kingdom</span></button><div class="resources" id="resources"></div></header><div class="layout"><aside><div class="desktop" id="kingdom-summary"></div><nav class="nav"><button data-view="map" class="active"><span class="nav-icon" aria-hidden="true">◈</span><span class="nav-long">Kingdom</span><span class="mobile-only">Kingdom</span></button><button data-view="economy"><span class="nav-icon" aria-hidden="true">↗</span><span class="nav-long">Economy</span><span class="mobile-only">Economy</span></button><button data-view="army"><span class="nav-icon" aria-hidden="true">⚑</span><span class="nav-long">Army</span><span class="mobile-only">Army</span></button><button data-view="ranks"><span class="nav-icon" aria-hidden="true">♜</span><span class="nav-long">Rankings</span><span class="mobile-only">Ranks</span></button><button data-view="guide"><span class="nav-icon" aria-hidden="true">?</span><span class="nav-long">How to play</span><span class="mobile-only">Help</span></button></nav><div class="desktop"><div id="connection" role="status">Connecting…</div><div class="account-actions"><button data-action="signout">Sign out</button></div></div></aside><main id="main" class="map-mode"><section id="map-view"><div class="map-head"><div><span class="eyebrow">Your corner of the world</span><h2 id="map-title">The frontier</h2></div><div class="map-controls"><button id="zoom-out" aria-label="Zoom out">−</button><button id="home" aria-label="Centre on capital">⌂</button><button id="zoom-in" aria-label="Zoom in">+</button></div></div><div class="map-shell"><div id="wrap"><canvas id="map" aria-label="Kingdom territory map. Select a cell to inspect or build." role="img"></canvas></div><div class="map-status"><span><i class="legend-dot" style="background:#91bd8a"></i>Your land</span><span>🛡 Protected core</span><span>◇ Monument</span><span>🌲 Neutral land</span></div></div><div class="tip">Drag or scroll to explore. Select a neighbouring cell to expand, or your own land to build. Capital cores cannot be attacked.</div></section><section id="other-view" class="hidden"></section></main><section id="selection" class="selection" aria-label="Selected cell" aria-live="polite"><div class="sheet-controls"><button id="sheet-expand" class="sheet-toggle" data-action="expandSheet" aria-expanded="false" aria-label="Expand cell details"><span id="sheet-caption">Cell details</span><span id="sheet-chevron" aria-hidden="true">↑</span></button><button id="sheet-dismiss" data-action="closeSheet" aria-label="Close cell details">×</button></div><div id="selection-content"></div></section><button id="inspect-selected" class="mobile-only hidden" data-action="inspect">Open selected cell</button></div></div><div id="toast" role="status" class="hidden"></div>
 <script src="demo-engine.js"></script>
 <script>
 'use strict';
@@ -25,14 +91,17 @@ const API='https://script.google.com/macros/s/AKfycbz_gdgTjRrYzmyE6rIGX43qpC43RH
 const $=s=>document.querySelector(s), CELL=38, cv=$('#map'), ctx=cv.getContext('2d');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
 const icons={capital:'🏰',generator:'⚡',miner:'💎',relay:'📡',house:'🏠',farm:'🌾',barracks:'⚔️',factory:'🏭',watchtower:'🗼',storage:'📦'};
-let S=null,sel=null,view='map',zoom=1,busy=false,demo=false,engine=null,attackTroops=2,trainTroops=1,allianceDraft='',toastTimer;
+let S=null,sel=null,view='map',zoom=window.innerWidth<=850?1.25:1,busy=false,demo=false,engine=null,attackTroops=2,trainTroops=1,allianceDraft='',toastTimer;
+let sheetOpen=false,sheetExpanded=false,pinch=null,pointerStart=null,ignoreMapClickUntil=0;
+const mobileMedia=typeof window.matchMedia==='function'?window.matchMedia('(max-width:850px)'):null;
 let cred;try{cred=JSON.parse(localStorage.getItem('cred')||'null')}catch{cred=null}
 function toast(message){clearTimeout(toastTimer);$('#toast').textContent=message;$('#toast').classList.remove('hidden');toastTimer=setTimeout(()=>$('#toast').classList.add('hidden'),6000)}
+function displayResource(value){return value>=10000?new Intl.NumberFormat('en',{notation:'compact',maximumFractionDigits:mobileMode()&&window.innerWidth<350?0:1}).format(value):value.toLocaleString()}
 function timeLeft(until){return Math.max(0,Math.ceil((until-S.serverTime)/60000))}
 function costText(cost){return Object.entries(cost).filter(([,v])=>v).map(([k,v])=>`${v} ${esc(k)}`).join(' · ')||'Free'}
 function canPay(cost){return Object.entries(cost).every(([key,value])=>Number(S.me[key])>=value)}
 function button(label,action,disabled=false,extra=''){return `<button class="full primary" data-action="${action}" ${disabled||busy?'disabled':''} ${extra}>${label}</button>`}
-function show(){ $('#login').classList.toggle('hidden',!!cred||demo);$('#app').classList.toggle('hidden',!cred&&!demo);$('#demo-banner').classList.toggle('hidden',!demo) }
+function show(){ document.body.classList.toggle('game-active',!!cred||demo);$('#login').classList.toggle('hidden',!!cred||demo);$('#app').classList.toggle('hidden',!cred&&!demo);$('#demo-banner').classList.toggle('hidden',!demo) }
 function apply(data){
   if(data.version!==2||!data.me?.income||!data.kingdom){toast('The host needs to finish the Kingdoms update before this version can connect.');return false}
   S=data;render();return true;
@@ -42,8 +111,8 @@ async function load(){
   try{
     const data=demo?engine.get():await(await fetch(API+'?'+new URLSearchParams({...cred,_:Date.now()}),{cache:'no-store'})).json();
     if(data.error){if(data.error==='auth'){cred=null;localStorage.removeItem('cred');show()}toast(data.error==='auth'?'Check your player name and token.':data.error);return}
-    apply(data);$('#connection').textContent=demo?'Practice world · saved on this device':'Connected · updates every 5 seconds';
-  }catch{ $('#connection').textContent='Connection interrupted · retrying'; }
+    if(apply(data))setConnection(demo?'Practice world · saved on this device':'Connected · updates every 5 seconds',true);
+  }catch{setConnection('Connection interrupted · retrying',false)}
 }
 async function act(action,extra={}){
   if(busy)return;
@@ -64,13 +133,39 @@ async function act(action,extra={}){
   }catch{toast('Connection interrupted. Refresh the state before retrying this action.');busy=false;await load()}
   finally{busy=false;render()}
 }
-function centre(){if(!S)return;const x=S.me.capitalX===''?16:S.me.capitalX,y=S.me.capitalY===''?16:S.me.capitalY;$('#wrap').scrollTo((x+.5)*CELL*zoom-$('#wrap').clientWidth/2,(y+.5)*CELL*zoom-$('#wrap').clientHeight/2)}
+function mobileMode(){return mobileMedia?mobileMedia.matches:window.innerWidth<=850}
+function setConnection(message,online){$('#connection').textContent=message;$('#mobile-status').title=message;$('#mobile-status').setAttribute('aria-label',message);$('#mobile-status').classList.toggle('offline',!online)}
+function measureChrome(){const head=$('#app header').offsetHeight+(demo?$('#demo-banner').offsetHeight:0);document.documentElement.style.setProperty('--header-height',head+'px');updateMapInset()}
+function sideSheet(){return mobileMode()&&window.innerHeight<=500&&window.innerWidth>window.innerHeight}
+function mapViewport(){const w=$('#wrap'),open=mobileMode()&&sheetOpen&&view==='map';return {width:Math.max(90,w.clientWidth-(open&&sideSheet()?$('#selection').offsetWidth:0)),height:Math.max(90,w.clientHeight-(open&&!sideSheet()?$('#selection').offsetHeight:0))}}
+function updateMapInset(){const open=mobileMode()&&sheetOpen&&view==='map',panel=$('#selection'),w=$('#wrap');w.style.paddingBottom=(open&&!sideSheet()?panel.offsetHeight:0)+'px';w.style.paddingRight=(open&&sideSheet()?panel.offsetWidth:0)+'px'}
+function syncMobile(){
+  const mobile=mobileMode(),open=mobile&&sheetOpen&&view==='map'&&!!sel,panel=$('#selection');
+  panel.classList.toggle('sheet-open',open);panel.classList.toggle('sheet-expanded',sheetExpanded);
+  panel.inert=mobile&&!open;panel.setAttribute('aria-hidden',String(mobile&&!open));
+  $('#sheet-expand').setAttribute('aria-expanded',String(sheetExpanded));$('#sheet-expand').setAttribute('aria-label',sheetExpanded?'Reduce cell details':'Expand cell details');$('#sheet-chevron').textContent=sheetExpanded?'↓':'↑';
+  $('#inspect-selected').classList.toggle('hidden',!(mobile&&sel&&view==='map'&&!open));
+  if(sel)$('#inspect-selected').textContent=`Cell ${sel.x}, ${sel.y} · Open`;
+  $('#main').classList.toggle('map-mode',view==='map');updateMapInset();
+}
+function scrollToCell(x,y){const w=$('#wrap'),visible=mapViewport();w.scrollTo((x+.5)*CELL*zoom-visible.width/2,(y+.5)*CELL*zoom-visible.height*.45)}
+function centre(){if(!S)return;scrollToCell(S.me.capitalX===''?16:S.me.capitalX,S.me.capitalY===''?16:S.me.capitalY)}
+function openSheet(recenter=true){sheetOpen=true;syncMobile();if(mobileMode()&&sel&&recenter)requestAnimationFrame(()=>{if(sheetOpen&&view==='map')scrollToCell(sel.x,sel.y)})}
+function closeSheet(focus=true){sheetOpen=false;sheetExpanded=false;syncMobile();if(focus&&mobileMode())cv.focus({preventScroll:true})}
+function zoomAt(next,clientX,clientY){
+  if(!S)return;const w=$('#wrap'),r=w.getBoundingClientRect(),visible=mapViewport();
+  const px=clientX===undefined?visible.width/2:clientX-r.left,py=clientY===undefined?visible.height/2:clientY-r.top;
+  const x=(w.scrollLeft+px)/zoom,y=(w.scrollTop+py)/zoom;
+  zoom=Math.min(2.5,Math.max(.6,next));draw();w.scrollTo(x*zoom-px,y*zoom-py);
+}
 function render(){
-  if(!S)return;const focusId=document.activeElement?.id;const m=S.me,t=m.stats;
-  $('#resources').innerHTML=[['⚡','Energy',m.energy],['🌾','Food',m.food],['🧱','Materials',m.materials],['💎','Data',m.data],['⚔️','Troops',m.troops]].map(([i,n,v])=>`<div class="resource"><small>${i} ${n}</small><strong>${v.toLocaleString()}</strong></div>`).join('');
-  $('#kingdom-summary').innerHTML=`<span class="eyebrow">Week ${S.week}</span><span class="crest">🏰</span><h2>${esc(m.name)}'s kingdom</h2><span class="badge">Capital level ${m.capitalLevel}</span><div class="divider"></div><div class="metric"><span>Territory</span><b>${t.land} / ${t.landLimit}</b></div><div class="bar"><span style="width:${Math.min(100,t.land/t.landLimit*100)}%"></span></div><div class="metric"><span>Workers in use</span><b>${t.workers} / ${t.capacity}</b></div><div class="metric"><span>Army capacity</span><b>${m.troops} / ${t.armyLimit}</b></div><div class="metric"><span>Alliance</span><b>${esc(m.alliance||'Independent')}</b></div><div class="divider"></div>`;
-  $('#map-title').textContent=m.capitalX===''?'Choose where your kingdom begins':`${m.name}'s frontier`;
+  if(!S)return;const focusId=document.activeElement?.id,contentScroll=$('#selection-content').scrollTop;const m=S.me,t=m.stats;
+  $('#resources').innerHTML=[['⚡','Energy',m.energy],['🌾','Food',m.food],['🧱','Materials',m.materials],['💎','Data',m.data],['⚔️','Troops',m.troops]].map(([i,n,v])=>`<div class="resource" title="${n}: ${v.toLocaleString()}" aria-label="${n}: ${v.toLocaleString()}"><small><span aria-hidden="true">${i}</span><span class="resource-long">${n}</span><span class="resource-short">${n==='Materials'?'Mats':n}</span></small><strong class="${v>=10000?'compact':''}">${displayResource(v)}</strong></div>`).join('');
+  $('#kingdom-summary').innerHTML=`<span class="eyebrow">Week ${S.week}</span><span class="crest">🏰</span><h2>${m.name==='You'?'Your':esc(m.name)+"'s"} kingdom</h2><span class="badge">Capital level ${m.capitalLevel}</span><div class="divider"></div><div class="metric"><span>Territory</span><b>${t.land} / ${t.landLimit}</b></div><div class="bar"><span style="width:${Math.min(100,t.land/t.landLimit*100)}%"></span></div><div class="metric"><span>Workers in use</span><b>${t.workers} / ${t.capacity}</b></div><div class="metric"><span>Army capacity</span><b>${m.troops} / ${t.armyLimit}</b></div><div class="metric"><span>Alliance</span><b>${esc(m.alliance||'Independent')}</b></div><div class="divider"></div>`;
+  $('#mobile-summary').textContent=`Lv ${m.capitalLevel} · ${t.land}/${t.landLimit} land`;
+  $('#map-title').textContent=m.capitalX===''?'Choose where your kingdom begins':m.name==='You'?'Your frontier':`${m.name}'s frontier`;
   draw();selection();if(view!=='map')other();
+  $('#selection-content').scrollTop=contentScroll;syncMobile();measureChrome();
   if(focusId)document.getElementById(focusId)?.focus({preventScroll:true});
 }
 function draw(){
@@ -94,7 +189,8 @@ function draw(){
   if(sel){ctx.strokeStyle='#f4e2a4';ctx.lineWidth=3;ctx.strokeRect(sel.x*CELL+1.5,sel.y*CELL+1.5,CELL-3,CELL-3)}
 }
 function selection(){
-  const panel=$('#selection'),m=S.me,k=S.kingdom;
+  const panel=$('#selection-content'),m=S.me,k=S.kingdom;
+  $('#sheet-caption').textContent=sel?`Cell ${sel.x}, ${sel.y} · Details`:'Cell details';
   if(!sel){panel.innerHTML='<div class="hero">🏰</div><span class="eyebrow">Room to grow</span><h2>Your next chapter starts here.</h2><p class="muted">Select your own land to build, or a neighbouring frontier cell to plan an expedition.</p><div class="card"><b>A kingdom takes shape</b><p class="muted" style="margin:10px 0 0">Farms feed your army. Factories supply construction. Housing makes room for the people behind it all.</p></div>';return}
   const c=S.cells.find(c=>c.x===sel.x&&c.y===sel.y),mon=S.monuments.find(c=>c.x===sel.x&&c.y===sel.y),own=c?.owner===m.name;
   let html=`<div class="hero">${c?.capital?'🏰':mon?'◇':icons[c?.building]||(c?'🌱':'🌲')}</div><span class="eyebrow">Cell ${sel.x}, ${sel.y}</span><h2>${mon?esc(mon.name):c?.capital?'Capital':c?.building?esc(k.buildings[c.building].name):c?'Open ground':'The frontier'}</h2><p class="muted">${c?'Held by '+esc(c.owner):'No-man’s-land · neutral defenders'}</p>`;
@@ -127,7 +223,9 @@ function buildingDescription(id){return({generator:'+40 energy / hour',miner:'+1
 function other(){
   const m=S.me,k=S.kingdom,t=m.stats;
   let html='';
-  if(view==='economy'){
+  if(view==='overview'){
+    html=`<span class="eyebrow">Your kingdom</span><h2>${esc(m.name)}</h2>`+$('#kingdom-summary').innerHTML+`<div class="card"><b>Connection</b><p class="muted">${esc($('#connection').textContent)}</p><button class="full" data-action="signout">Sign out</button></div>`;
+  }else if(view==='economy'){
     html='<span class="eyebrow">Build your foundations</span><h2>A kingdom that sustains itself.</h2><div class="grid">'+['energy','food','materials','data'].map(key=>`<div class="card"><span class="muted">${esc(key)}</span><h2 style="margin:12px 0">${m.income[key]>=0?'+':''}${m.income[key]} <small>/ hour</small></h2><small>${key==='energy'?m.income.upkeep+' energy upkeep already deducted':key==='food'||key==='materials'?m[key]+' / '+t.storage+' storage':'Research resource for capital upgrades'}</small></div>`).join('')+'</div>';
     html+=`<div class="card"><h3 style="margin-top:0">Workers make it happen</h3><p>${t.workers} assigned / ${t.capacity} capacity · ${t.available} available.</p><p class="muted">Housing adds workers. Farms, factories, barracks and towers use workers. If housing is lost, worker-dependent production pauses until capacity is restored.</p>${t.workers>t.capacity?'<p class="warn">Worker shortage: build or repair housing.</p>':''}${m.income.paused?'<p class="warn">'+m.income.paused+' factories are paused.</p>':''}</div><h3>Your buildings</h3>`;
     html+=S.cells.filter(c=>c.owner===m.name&&c.building).map(c=>`<button class="building-option" data-jump="${c.x},${c.y}"><span class="icon">${icons[c.building]}</span><span><b>${esc(k.buildings[c.building].name)} · Level ${c.level}</b><small>Cell ${c.x}, ${c.y}${c.damaged?' · Needs repair':''}</small></span></button>`).join('')||'<p class="muted">Select an empty cell in your kingdom to construct your first building.</p>';
@@ -144,8 +242,30 @@ function other(){
   }
   $('#other-view').innerHTML=html;
 }
-function switchView(next){view=next;$('#map-view').classList.toggle('hidden',view!=='map');$('#other-view').classList.toggle('hidden',view==='map');document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));if(S&&view!=='map')other()}
-cv.addEventListener('click',e=>{if(!S)return;const r=cv.getBoundingClientRect();sel={x:Math.floor((e.clientX-r.left)/r.width*S.size),y:Math.floor((e.clientY-r.top)/r.height*S.size)};if(sel.x>=S.size||sel.y>=S.size)return;draw();selection()});
+function switchView(next){view=next;sheetOpen=false;sheetExpanded=false;$('#map-view').classList.toggle('hidden',view!=='map');$('#other-view').classList.toggle('hidden',view==='map');document.querySelectorAll('.nav [data-view]').forEach(b=>{b.classList.toggle('active',b.dataset.view===view);b.setAttribute('aria-current',b.dataset.view===view?'page':'false')});if(S&&view!=='map')other();$('#main').scrollTop=0;syncMobile()}
+cv.tabIndex=0;
+cv.addEventListener('pointerdown',e=>{pointerStart={x:e.clientX,y:e.clientY,left:$('#wrap').scrollLeft,top:$('#wrap').scrollTop};if(e.pointerType==='mouse')cv.setPointerCapture(e.pointerId)});
+cv.addEventListener('pointermove',e=>{if(pointerStart&&Math.hypot(e.clientX-pointerStart.x,e.clientY-pointerStart.y)>8){ignoreMapClickUntil=Date.now()+400;if(e.pointerType==='mouse'&&e.buttons===1)$('#wrap').scrollTo(pointerStart.left-(e.clientX-pointerStart.x),pointerStart.top-(e.clientY-pointerStart.y))}});
+cv.addEventListener('pointerup',()=>{pointerStart=null});
+cv.addEventListener('pointercancel',()=>{pointerStart=null;ignoreMapClickUntil=Date.now()+400});
+cv.addEventListener('click',e=>{
+  if(!S||Date.now()<ignoreMapClickUntil)return;const r=cv.getBoundingClientRect();
+  const next={x:Math.floor((e.clientX-r.left)/r.width*S.size),y:Math.floor((e.clientY-r.top)/r.height*S.size)};
+  if(next.x<0||next.y<0||next.x>=S.size||next.y>=S.size)return;
+  sel=next;sheetExpanded=false;draw();selection();openSheet();
+});
+cv.addEventListener('keydown',e=>{
+  if(!S)return;const directions={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};
+  if(directions[e.key]){e.preventDefault();const d=directions[e.key],base=sel||{x:S.me.capitalX===''?16:S.me.capitalX,y:S.me.capitalY===''?16:S.me.capitalY};sel={x:Math.min(S.size-1,Math.max(0,base.x+d[0])),y:Math.min(S.size-1,Math.max(0,base.y+d[1]))};draw();selection();syncMobile();scrollToCell(sel.x,sel.y)}
+  if((e.key==='Enter'||e.key===' ')&&sel){e.preventDefault();openSheet()}
+});
+const distance=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);
+$('#wrap').addEventListener('touchstart',e=>{if(e.touches.length===2){pinch={distance:distance(e.touches),zoom};ignoreMapClickUntil=Date.now()+600}},{passive:true});
+$('#wrap').addEventListener('touchmove',e=>{if(pinch&&e.touches.length===2){if(e.cancelable)e.preventDefault();ignoreMapClickUntil=Date.now()+600;zoomAt(pinch.zoom*distance(e.touches)/Math.max(1,pinch.distance),(e.touches[0].clientX+e.touches[1].clientX)/2,(e.touches[0].clientY+e.touches[1].clientY)/2)}},{passive:false});
+$('#wrap').addEventListener('touchend',e=>{if(e.touches.length<2)pinch=null},{passive:true});
+$('#wrap').addEventListener('touchcancel',()=>{pinch=null},{passive:true});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobileMode()&&sheetOpen){e.preventDefault();closeSheet()}});
+document.body.addEventListener('focusin',e=>{if(mobileMode()&&e.target.matches('#selection-content input')){sheetExpanded=true;syncMobile()}});
 document.body.addEventListener('input',e=>{
   if(e.target.id==='alliance-name')allianceDraft=e.target.value;
   if(e.target.id==='attack-troops')attackTroops=Math.max(1,Math.floor(Number(e.target.value)||1));
@@ -155,8 +275,11 @@ document.body.addEventListener('change',e=>{if(e.target.id==='attack-troops')sel
 document.body.addEventListener('click',e=>{
   const b=e.target.closest('button');if(!b||b.disabled)return;
   if(b.dataset.view){switchView(b.dataset.view);return}
-  if(b.dataset.jump){const[x,y]=b.dataset.jump.split(',').map(Number);sel={x,y};switchView('map');draw();selection();$('#wrap').scrollTo(x*CELL*zoom-100,y*CELL*zoom-100);return}
+  if(b.dataset.jump){const[x,y]=b.dataset.jump.split(',').map(Number);sel={x,y};switchView('map');draw();selection();openSheet();scrollToCell(x,y);return}
   let action=b.dataset.action;if(!action)return;
+  if(action==='closeSheet'){closeSheet();return}
+  if(action==='expandSheet'){sheetExpanded=!sheetExpanded;syncMobile();return}
+  if(action==='inspect'){openSheet();return}
   if(action==='attack'){
     const target=S.cells.find(c=>c.x===sel.x&&c.y===sel.y);
     if(target&&!confirm(`Attack ${target.owner}'s cell ${sel.x}, ${sel.y} with ${attackTroops} troops for ${S.cfg.steal} energy?`))return;
@@ -169,10 +292,14 @@ document.body.addEventListener('click',e=>{
 });
 $('#signin').addEventListener('submit',async e=>{e.preventDefault();demo=false;cred={name:$('#name').value.trim(),token:$('#token').value.trim()};localStorage.setItem('cred',JSON.stringify(cred));show();await load();centre()});
 $('#try-demo').addEventListener('click',async()=>{demo=true;engine=createDemoEngine();show();await load();centre()});
-$('#home').onclick=centre;
-$('#zoom-in').onclick=()=>{zoom=Math.min(2,zoom+.25);if(S){draw();centre()}};
-$('#zoom-out').onclick=()=>{zoom=Math.max(.5,zoom-.25);if(S){draw();centre()}};
+$('#home').onclick=()=>{if(mobileMode())closeSheet(false);centre()};
+$('#zoom-in').onclick=()=>zoomAt(zoom+.25);
+$('#zoom-out').onclick=()=>zoomAt(zoom-.25);
+window.addEventListener('resize',()=>{syncMobile();measureChrome()});
+mobileMedia?.addEventListener('change',()=>{syncMobile();measureChrome()});
+if(typeof ResizeObserver==='function'){const observer=new ResizeObserver(measureChrome);observer.observe($('#app header'));observer.observe($('#demo-banner'));observer.observe($('#selection'))}
 show();if(cred)load().then(centre);setInterval(()=>{if(!document.hidden)load()},5000);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body></html>
+

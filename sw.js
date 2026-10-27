@@ -1,4 +1,4 @@
-const CACHE='territory-kingdoms-v2',FILES=['./','index.html','demo-engine.js','manifest.json','icon.svg'];
+const CACHE='territory-kingdoms-mobile-v3',FILES=['./','index.html','demo-engine.js','manifest.json','icon.svg'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('territory-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{
