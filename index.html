@@ -21,16 +21,17 @@ small,.m{color:var(--mu);font-size:13px}
 #app{display:none;flex:1;min-height:0;flex-direction:column}
 header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line)}
 .chip{background:var(--panel);border-radius:8px;padding:6px 10px;font-weight:500;margin-left:6px}
-#v1,#v2{flex:1;min-height:0}
-#v1{display:flex;flex-direction:column}#v2{display:none;overflow:auto;padding:16px}
+.v{flex:1;min-height:0}#v1{display:flex;flex-direction:column}.w{display:none;overflow:auto;padding:16px}
 #wrap{flex:1;overflow:auto;background:#13211C}
 #sheet{background:var(--panel);border-top:1px solid #2B4037;padding:16px;display:flex;flex-direction:column;gap:8px;min-height:150px}
-#sheet b{font-size:20px}.row{display:flex;gap:8px}.row button{flex:1}
+#sheet b{font-size:20px}.row{display:flex;gap:8px;margin-top:8px}.row button{flex:1}
 nav{display:flex;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-nav button{flex:1;background:none;border-radius:0;border-top:2px solid transparent;color:var(--mu);height:56px}
+nav button{flex:1;background:none;border-radius:0;border-top:2px solid transparent;color:var(--mu);height:56px;padding:0}
 nav button.on{color:var(--ac);border-top-color:var(--ac)}
 .r{display:flex;align-items:center;gap:12px;padding:10px 0}.r i{width:12px;height:12px;border-radius:3px}
 .r span{flex:1;display:flex;flex-direction:column}h3{margin:20px 0 4px;font-size:15px}
+.j{width:100%;text-align:left;background:none;border-radius:0;font-weight:400;min-height:56px;padding:0;border-bottom:1px solid var(--line)}
+.w>button{margin-top:12px;width:100%}
 #toast{position:fixed;left:50%;top:70px;transform:translateX(-50%);background:#FF9F5A;color:#07120E;padding:8px 14px;border-radius:8px;font-weight:700;display:none}
 </style>
 </head>
@@ -44,33 +45,43 @@ nav button.on{color:var(--ac);border-top-color:var(--ac)}
 </form>
 <div id="app">
 <header><span><b id="wk"></b><br><small id="msg">Resets Monday</small></span><span><span class="chip" id="en"></span><span class="chip" id="da"></span></span></header>
-<div id="v1"><div id="wrap"><canvas id="map"></canvas></div><div id="sheet"></div></div>
-<div id="v2"></div>
-<nav><button class="on" data-v="1">Map</button><button data-v="2">Ranks</button></nav>
+<div class="v" id="v1"><div id="wrap"><canvas id="map"></canvas></div><div id="sheet"></div></div>
+<div class="v w" id="v2"></div><div class="v w" id="v3"></div><div class="v w" id="v4"></div>
+<nav><button class="on" data-v="1">Map</button><button data-v="3">Build</button><button data-v="4">Alliance</button><button data-v="2">Ranks</button></nav>
 </div>
 <div id="toast" role="alert"></div>
 <script>
 const API='https://script.google.com/macros/s/AKfycbz_gdgTjRrYzmyE6rIGX43qpC43RHrDM4HqeuKuAw0vvn7wpo0UhL3GsiXlsGEtfQ2QCg/exec',$=s=>document.querySelector(s),CELL=28;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';');
-let S=null,sel=null,cred=JSON.parse(localStorage.getItem('cred')||'null');
+let S=null,sel=null,last='',cred=JSON.parse(localStorage.getItem('cred')||'null');
 const cv=$('#map'),g=cv.getContext('2d');
+const put=(id,h)=>{const e=$(id);if(e._h!==h){e._h=h;e.innerHTML=h}};
 function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2500)}
+function apply(d){const j=JSON.stringify(d);if(j===last)return;last=j;S=d;paint()}
 async function load(){
   if(!cred)return;
   try{const d=await(await fetch(API+'?'+new URLSearchParams(cred))).json();
     if(d.error){localStorage.removeItem('cred');cred=null;show();toast('Wrong name or token');return}
-    S=d;paint();$('#msg').textContent='Resets Monday'}
+    apply(d);$('#msg').textContent='Resets Monday'}
   catch(e){$('#msg').textContent='Offline, retrying'}
 }
 async function act(o){
   try{const d=await(await fetch(API,{method:'POST',body:JSON.stringify({...cred,...o})})).json();
-    d.error?toast(d.error):(S=d,paint())}
+    d.error?toast(d.error):apply(d)}
   catch(e){toast('Could not reach the server')}
 }
 function show(){$('#login').style.display=cred?'none':'flex';$('#app').style.display=cred?'flex':'none'}
+function tab(v){
+  document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x.dataset.v==v));
+  document.querySelectorAll('.v').forEach(x=>x.style.display=x.id=='v'+v?(v=='1'?'flex':'block'):'none')
+}
+const mine=()=>S.cells.filter(c=>c.owner==S.me.name),isMon=c=>S.monuments.some(m=>m.x==c.x&&m.y==c.y);
+const near=c=>S.cells.some(r=>r.building==='relay'&&r.owner===c.owner&&r!==c&&Math.abs(r.x-c.x)<=1&&Math.abs(r.y-c.y)<=1);
+function out(c){const k=S.cfg,m=1+(near(c)?k.boost:0);
+  return c.building==='generator'?['energy',Math.round(k.gen*m)]:c.building==='miner'?['data',Math.round(k.miner*m)]:null}
 function paint(){
   $('#wk').textContent='Week '+S.week;$('#en').textContent='Energy '+S.me.energy;$('#da').textContent='Data '+S.me.data;
-  draw();sheet();ranks()
+  draw();sheet();put('#v2',ranks());put('#v3',build());put('#v4',ally())
 }
 function draw(){
   const n=S.size,col=Object.fromEntries(S.players.map(p=>[p.name,p.color]));
@@ -86,14 +97,36 @@ function draw(){
   if(sel){g.strokeStyle='#E8F0EC';g.lineWidth=2;g.strokeRect(sel.x*CELL+1,sel.y*CELL+1,CELL-2,CELL-2);g.lineWidth=1}
 }
 function sheet(){
-  const el=$('#sheet');
-  if(!sel){el.innerHTML='<b>Tap a cell</b><span class="m">Claim land next to yours, then build on it.</span>';return}
-  const c=S.cells.find(c=>c.x==sel.x&&c.y==sel.y),mon=S.monuments.find(m=>m.x==sel.x&&m.y==sel.y);
+  if(!sel)return put('#sheet','<b>Tap a cell</b><span class="m">Claim land next to yours, then build on it.</span>');
+  const c=S.cells.find(c=>c.x==sel.x&&c.y==sel.y),mon=S.monuments.find(m=>m.x==sel.x&&m.y==sel.y),has=mine().length>0;
   let h=`<small>Cell ${sel.x},${sel.y}${mon?' · monument':''}</small><b>${mon?esc(mon.name):c&&c.building?esc(c.building):c?'Empty cell':'Unclaimed'}</b>`;
   h+=`<span class="m">${c?'Held by '+esc(c.owner):'Free land'}</span>`;
-  if(mon&&!S.cells.some(x=>x.owner==S.me.name))h+='<span class="m">Monuments cannot be your first cell. Claim other land first.</span>';else if(!c||c.owner!==S.me.name)h+=`<button class="p" data-a="capture">${c?'Capture · '+S.cfg.steal+' energy':S.cells.some(x=>x.owner==S.me.name)?'Claim · '+S.cfg.capture+' energy':'Claim your capital · free'}</button>`;
+  if(mon&&!has)h+='<span class="m">Monuments cannot be your first cell. Claim other land first.</span>';
+  else if(!c||c.owner!==S.me.name)h+=`<button class="p" data-a="capture">${c?'Capture · '+S.cfg.steal+' energy':has?'Claim · '+S.cfg.capture+' energy':'Claim your capital · free'}</button>`;
   else if(!c.building&&!mon)h+='<div class="row">'+Object.keys(S.cfg.cost).map(b=>`<button data-a="build:${b}">${b}<br>${S.cfg.cost[b]}</button>`).join('')+'</div>';
-  el.innerHTML=h
+  put('#sheet',h)
+}
+function build(){
+  const M=mine(),k=S.cfg,B=M.filter(c=>c.building),F=M.filter(c=>!c.building&&!isMon(c));
+  let e=k.base,d=0;
+  M.forEach(c=>{if(isMon(c))e+=k.monE;const o=out(c);if(o){if(o[0]=='energy')e+=o[1];else d+=o[1]}});
+  const row=(c,t,r)=>`<button class="r j" data-j="${c.x},${c.y}"><span><b>${t}</b><small>Cell ${c.x},${c.y}</small></span><span style="flex:none;text-align:right">${r}</span></button>`;
+  let h=`<b>Income</b><div class="r"><span><b>+${e} energy per hour</b><small>+${d} data per hour · includes ${k.base} base${M.some(isMon)?' and monuments':''}</small></span></div>`;
+  h+='<h3>Buildings</h3>'+(B.map(c=>{const o=out(c);return row(c,esc(c.building)+(near(c)?' (boosted)':''),o?'+'+o[1]+' '+o[0]:'+'+Math.round(k.boost*100)+'% nearby')}).join('')||'<span class="m">None yet. Tap one of your cells on the map to build.</span>');
+  h+='<h3>Free cells to build on</h3>'+(F.slice(0,8).map(c=>row(c,'Empty cell','Build')).join('')||'<span class="m">Claim more land next to yours.</span>');
+  return h
+}
+function ally(){
+  const a=S.me.alliance,P=S.players,names=[...new Set(P.map(p=>p.alliance).filter(x=>x&&x!==a))];
+  let h='<b>Alliance</b>';
+  if(a){const mem=P.filter(p=>p.alliance===a);
+    h+=`<h3>${esc(a)}</h3><span class="m">${mem.reduce((s,p)=>s+p.points,0)} points this week. Allies cannot capture each other's land.</span>`
+    +mem.map(p=>`<div class="r"><i style="background:${esc(p.color)}"></i><span>${esc(p.name)}<small>${S.cells.filter(c=>c.owner==p.name).length} cells</small></span><b>${p.points}</b></div>`).join('')
+    +'<button data-a="ally" data-al="">Leave alliance</button>'}
+  else h+='<p class="m">You are not in an alliance. Allies cannot capture each other\'s land, and their points add up on the alliance board.</p>';
+  h+=names.length?'<h3>Join an existing one</h3>'+names.map(n=>`<button data-a="ally" data-al="${esc(n)}">Join ${esc(n)}</button>`).join(''):'';
+  h+=`<h3>Start a new one</h3><div class="row"><input id="al" maxlength="20" placeholder="Alliance name"><button class="p" data-a="ally" style="flex:none">Create</button></div>`;
+  return h
 }
 function ranks(){
   const P=S.players.slice().sort((a,b)=>b.points-a.points),al={};
@@ -101,16 +134,18 @@ function ranks(){
   let h='<b>Weekly ranking</b>'+P.map((p,i)=>`<div class="r"><i style="background:${esc(p.color)}"></i><span>${i+1}. ${esc(p.name)}${p.name==S.me.name?' (you)':''}<small>${esc(p.alliance||'No alliance')}</small></span><b>${p.points}</b></div>`).join('');
   h+='<h3>Alliances</h3>'+(Object.entries(al).sort((a,b)=>b[1]-a[1]).map(([n,v])=>`<div class="r"><span>${esc(n)}</span><b>${v}</b></div>`).join('')||'<span class="m">None yet.</span>');
   if(S.winner)h+=`<h3>Last week's winner</h3><span>${esc(S.winner)}</span>`;
-  h+=`<h3>Your alliance</h3><div class="row"><input id="al" value="${esc(S.me.alliance||'')}" maxlength="20" placeholder="Alliance name"><button class="p" data-a="ally" style="flex:none">Save</button></div><button data-a="reset" style="margin-top:24px;background:#5A2B2B">Restart from scratch</button><button id="out" style="margin-top:12px">Sign out</button>`;
-  $('#v2').innerHTML=h
+  return h+'<button data-a="reset" style="margin-top:24px;background:#5A2B2B">Restart from scratch</button><button id="out">Sign out</button>'
 }
 cv.onclick=e=>{const r=cv.getBoundingClientRect();
   sel={x:Math.floor((e.clientX-r.left)/CELL),y:Math.floor((e.clientY-r.top)/CELL)};draw();sheet()};
 document.body.addEventListener('click',e=>{
-  const b=e.target.closest('button');if(!b)return;
-  if(b.dataset.v){document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));$('#v1').style.display=b.dataset.v=='1'?'flex':'none';$('#v2').style.display=b.dataset.v=='2'?'block':'none'}
-  else if(b.id==='out'){localStorage.removeItem('cred');cred=null;show()}
-  else if(b.dataset.a){if(b.dataset.a==='reset'&&!confirm('Give up all your land and buildings and restart with 300 energy?'))return;const[t,x]=b.dataset.a.split(':');act({action:t,x:sel&&sel.x,y:sel&&sel.y,building:x,alliance:$('#al')&&$('#al').value})}
+  const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+  if(d.v)tab(d.v);
+  else if(d.j){const[x,y]=d.j.split(',').map(Number),w=$('#wrap');sel={x,y};tab('1');draw();sheet();w.scrollTo(x*CELL-w.clientWidth/2,y*CELL-w.clientHeight/2)}
+  else if(b.id==='out'){localStorage.removeItem('cred');cred=null;last='';show()}
+  else if(d.a){
+    if(d.a==='reset'&&!confirm('Give up all your land and buildings and restart with '+S.cfg.start+' energy?'))return;
+    const[t,x]=d.a.split(':');act({action:t,x:sel&&sel.x,y:sel&&sel.y,building:x,alliance:'al'in d?d.al:($('#al')||{}).value})}
 });
 $('#login').onsubmit=e=>{e.preventDefault();cred={name:$('#n').value.trim(),token:$('#t').value.trim()};localStorage.setItem('cred',JSON.stringify(cred));show();load()};
 show();load();setInterval(()=>{if(!document.hidden)load()},5000);
