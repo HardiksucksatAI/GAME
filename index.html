@@ -91,7 +91,7 @@ function sheet(){
   const c=S.cells.find(c=>c.x==sel.x&&c.y==sel.y),mon=S.monuments.find(m=>m.x==sel.x&&m.y==sel.y);
   let h=`<small>Cell ${sel.x},${sel.y}${mon?' · monument':''}</small><b>${mon?esc(mon.name):c&&c.building?esc(c.building):c?'Empty cell':'Unclaimed'}</b>`;
   h+=`<span class="m">${c?'Held by '+esc(c.owner):'Free land'}</span>`;
-  if(!c||c.owner!==S.me.name)h+=`<button class="p" data-a="capture">${c?'Capture · '+S.cfg.steal+' energy':S.cells.some(x=>x.owner==S.me.name)?'Claim · '+S.cfg.capture+' energy':'Claim your capital · free'}</button>`;
+  if(mon&&!S.cells.some(x=>x.owner==S.me.name))h+='<span class="m">Monuments cannot be your first cell. Claim other land first.</span>';else if(!c||c.owner!==S.me.name)h+=`<button class="p" data-a="capture">${c?'Capture · '+S.cfg.steal+' energy':S.cells.some(x=>x.owner==S.me.name)?'Claim · '+S.cfg.capture+' energy':'Claim your capital · free'}</button>`;
   else if(!c.building&&!mon)h+='<div class="row">'+Object.keys(S.cfg.cost).map(b=>`<button data-a="build:${b}">${b}<br>${S.cfg.cost[b]}</button>`).join('')+'</div>';
   el.innerHTML=h
 }
